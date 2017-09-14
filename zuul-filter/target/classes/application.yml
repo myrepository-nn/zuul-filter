@@ -6,6 +6,9 @@ spring:
     name: zuul-apigateway
     
 zuul:
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 2000
   routes:
     consumer1:
       path: /con1/**
@@ -19,3 +22,15 @@ eureka:
   instance:
     metadata-map:
       instanceId: ${spring:application:name}:${server:port}
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000 
+          
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
